@@ -1,0 +1,194 @@
+/* FunNow Premium Extension Styles */
+:root {
+  --funnow-orange: #FF6B00;
+  --funnow-pink: #FF006B;
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: blur(12px);
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --accent-gradient: linear-gradient(135deg, var(--funnow-orange), var(--funnow-pink));
+}
+
+.fn-premium-sidebar {
+  position: fixed;
+  top: 100px;
+  right: -280px; /* Hidden by default, showing only the edge/pull-tab */
+  width: 320px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px 0 0 24px; /* Rounded only on the left */
+  padding: 24px;
+  box-shadow: -8px 0 32px 0 rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.fn-premium-sidebar.expanded {
+  right: 0;
+}
+
+.fn-pull-tab {
+  position: absolute;
+  left: -48px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 64px;
+  background: var(--accent-gradient);
+  border-radius: 16px 0 0 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: -4px 0 15px rgba(255, 107, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fn-pull-tab:hover {
+  left: -56px;
+  width: 56px;
+  box-shadow: -6px 0 20px rgba(255, 107, 0, 0.6);
+}
+
+.fn-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.fn-logo {
+  font-weight: 800;
+  font-size: 1.2rem;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.fn-toggle-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.fn-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.fn-section {
+  margin-bottom: 20px;
+}
+
+.fn-section-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.fn-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.fn-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.fn-switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.fn-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.fn-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: .4s;
+  border-radius: 20px;
+}
+
+.fn-slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .fn-slider {
+  background: var(--accent-gradient);
+}
+
+input:checked + .fn-slider:before {
+  transform: translateX(16px);
+}
+
+.fn-cta {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: var(--accent-gradient);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+  transition: transform 0.2s;
+}
+
+.fn-cta:active {
+  transform: scale(0.98);
+}
+
+/* Modal Auto-Confirm Highlighting */
+.fn-auto-acting {
+  border: 2px solid var(--funnow-orange) !important;
+  animation: fn-pulse 1.5s infinite;
+}
+
+@keyframes fn-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 107, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 107, 0, 0); }
+}
