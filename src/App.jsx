@@ -662,7 +662,7 @@ export default function App() {
         {/* Fixed Floating Donation Button */}
         <button
           onClick={() => setShowDonation(true)}
-          className="fixed bottom-6 right-6 z-50 group flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white font-bold px-5 py-3 rounded-full shadow-[0_4px_20px_rgba(249,115,22,0.5)] hover:shadow-[0_6px_30px_rgba(249,115,22,0.7)] transition-all duration-300 hover:scale-105 active:scale-95"
+          className="fixed bottom-6 left-6 z-50 group flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white font-bold px-5 py-3 rounded-full shadow-[0_4px_20px_rgba(249,115,22,0.5)] hover:shadow-[0_6px_30px_rgba(249,115,22,0.7)] transition-all duration-300 hover:scale-105 active:scale-95"
           title={lang === 'zh' ? '隨喜贊助' : 'Donate'}
         >
           <Gift size={20} className="transform group-hover:rotate-12 transition-transform duration-300" />
