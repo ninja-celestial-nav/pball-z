@@ -659,15 +659,16 @@ export default function App() {
           </div>
         </header>
 
-        {/* Fixed Floating Donation Button */}
+        {/* Fixed Floating Donation Button — non-intrusive, avoids sidebar */}
         <button
           onClick={() => setShowDonation(true)}
-          className="fixed bottom-6 left-6 z-50 group flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white font-bold px-5 py-3 rounded-full shadow-[0_4px_20px_rgba(249,115,22,0.5)] hover:shadow-[0_6px_30px_rgba(249,115,22,0.7)] transition-all duration-300 hover:scale-105 active:scale-95"
+          className="fixed bottom-5 left-4 lg:left-[19.5rem] z-40 group flex items-center gap-0 hover:gap-2 bg-slate-800/80 hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-600 backdrop-blur-md text-orange-400 hover:text-white border border-slate-700 hover:border-orange-500/50 font-bold p-3 hover:px-5 hover:py-3 rounded-full shadow-lg hover:shadow-[0_4px_20px_rgba(249,115,22,0.4)] transition-all duration-300 hover:scale-105 active:scale-95"
           title={lang === 'zh' ? '隨喜贊助' : 'Donate'}
         >
-          <Gift size={20} className="transform group-hover:rotate-12 transition-transform duration-300" />
-          <span className="hidden sm:inline text-sm">{lang === 'zh' ? '隨喜贊助' : 'Donate'}</span>
-          <div className="absolute -inset-1 rounded-full bg-orange-500/30 animate-ping pointer-events-none" />
+          <Gift size={18} className="flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300" />
+          <span className="max-w-0 overflow-hidden group-hover:max-w-[6rem] whitespace-nowrap text-sm transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100">
+            {lang === 'zh' ? '隨喜贊助' : 'Donate'}
+          </span>
         </button>
 
         <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-4 lg:p-8 pb-32 scroll-smooth custom-scrollbar">
