@@ -31,3 +31,16 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(100, 116, 139, 0.5);
 }
+
+@keyframes ball-shoot {
+  0% { left: var(--start-x); bottom: var(--start-y); opacity: 0; }
+  5% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { left: var(--end-x); bottom: var(--end-y); opacity: 0; }
+}
+
+@keyframes ball-arc {
+  0% { transform: scale(1); }
+  50% { transform: scale(var(--scale-max, 1.5)); }
+  100% { transform: scale(0.6); }
+}

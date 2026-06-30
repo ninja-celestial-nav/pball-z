@@ -341,66 +341,142 @@ const DifficultyStars = ({ level }) => {
   );
 };
 
+const TargetLock = ({ label, color }) => (
+  <div className="relative flex items-center justify-center w-full h-full">
+     <div className={`absolute w-4 h-4 border-t-2 border-l-2 ${color} border-opacity-70 top-2 left-2`}></div>
+     <div className={`absolute w-4 h-4 border-t-2 border-r-2 ${color} border-opacity-70 top-2 right-2`}></div>
+     <div className={`absolute w-4 h-4 border-b-2 border-l-2 ${color} border-opacity-70 bottom-2 left-2`}></div>
+     <div className={`absolute w-4 h-4 border-b-2 border-r-2 ${color} border-opacity-70 bottom-2 right-2`}></div>
+     <span className={`${color} font-mono text-[10px] bg-[#020617]/80 px-2 py-1 rounded border border-current opacity-80 tracking-widest drop-shadow-md`}>{label}</span>
+  </div>
+);
+
 const CourtVisual = ({ activeTechnique, lang }) => {
+  const getTrajectory = (techId) => {
+    switch(techId) {
+      case 'serve': return { startX: '65%', startY: '5%', endX: '30%', endY: '82%', duration: '1.2s', scaleMax: 1.4, isFlat: false, rivalX: '50%' };
+      case 'return': return { startX: '65%', startY: '5%', endX: '50%', endY: '82%', duration: '1.8s', scaleMax: 1.8, isFlat: false, rivalX: '50%' };
+      case 'drive': return { startX: '50%', startY: '20%', endX: '50%', endY: '75%', duration: '0.6s', scaleMax: 1.0, isFlat: true, rivalX: '50%' };
+      case 'drop': return { startX: '50%', startY: '20%', endX: '50%', endY: '58%', duration: '1.6s', scaleMax: 1.6, isFlat: false, rivalX: '50%' };
+      case 'dink': return { startX: '50%', startY: '33%', endX: '75%', endY: '58%', duration: '1.2s', scaleMax: 1.3, isFlat: false, rivalX: '50%' };
+      case 'volley': return { startX: '50%', startY: '33%', endX: '72%', endY: '67%', duration: '0.4s', scaleMax: 1.0, isFlat: true, rivalX: '50%' };
+      case 'reset': return { startX: '50%', startY: '25%', endX: '50%', endY: '58%', duration: '1.8s', scaleMax: 1.4, isFlat: false, rivalX: '50%' };
+      default: return { startX: '50%', startY: '10%', endX: '50%', endY: '75%', duration: '1s', scaleMax: 1.2, isFlat: false, rivalX: '50%' };
+    }
+  };
+  const traj = getTrajectory(activeTechnique.id);
+
   return (
-    <div className="relative w-full aspect-[20/44] bg-slate-800 rounded-lg border-2 border-slate-600 overflow-hidden shadow-2xl">
-       {/* Court Grid Lines */}
-       <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-400/50 z-20 flex items-center justify-center">
-          <div className="bg-slate-900 text-gray-400 px-2 text-[10px] font-mono border border-gray-600 rounded">NET</div>
+    <div className="relative w-full aspect-[20/44] bg-[#020617] rounded-lg border-2 border-cyan-500/40 overflow-hidden shadow-[0_0_30px_rgba(6,182,212,0.15)] flex items-center justify-center">
+       
+       {/* Radar Sweeping Background */}
+       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.1)_0%,transparent_70%)]"></div>
+       <div className="absolute w-[200%] h-[200%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-[spin_4s_linear_infinite]"
+            style={{ background: 'conic-gradient(from 0deg, transparent 70%, rgba(6,182,212,0.3) 100%)' }}></div>
+       
+       {/* Concentric Radar Rings */}
+       <div className="absolute w-[40%] h-[20%] border border-cyan-500/20 rounded-full"></div>
+       <div className="absolute w-[80%] h-[40%] border border-cyan-500/20 rounded-full"></div>
+       <div className="absolute w-[120%] h-[60%] border border-cyan-500/20 rounded-full"></div>
+
+       {/* Court Neon Grid Lines */}
+       <div className="absolute top-[10%] bottom-[10%] left-[10%] right-[10%] border border-cyan-500/40 shadow-[0_0_10px_rgba(6,182,212,0.3)]"></div>
+       <div className="absolute top-1/2 left-[10%] right-[10%] h-0.5 bg-cyan-400/80 shadow-[0_0_8px_rgba(34,211,238,0.8)] z-20 flex items-center justify-center">
+          <div className="bg-[#020617] text-cyan-400 px-2 text-[10px] font-mono border border-cyan-500/50 rounded shadow-[0_0_5px_rgba(6,182,212,0.5)]">NET</div>
        </div>
        
-       <div className="absolute top-[35%] left-0 right-0 h-0.5 bg-white/20"></div>
-       <div className="absolute bottom-[35%] left-0 right-0 h-0.5 bg-white/20"></div>
+       {/* NVZ Lines */}
+       <div className="absolute top-[35%] left-[10%] right-[10%] h-[1px] bg-cyan-500/40"></div>
+       <div className="absolute bottom-[35%] left-[10%] right-[10%] h-[1px] bg-cyan-500/40"></div>
        
-       <div className="absolute top-0 bottom-[65%] left-1/2 w-0.5 bg-white/20 transform -translate-x-1/2"></div>
-       <div className="absolute top-[65%] bottom-0 left-1/2 w-0.5 bg-white/20 transform -translate-x-1/2"></div>
+       {/* Centerlines */}
+       <div className="absolute top-[10%] bottom-[65%] left-1/2 w-[1px] bg-cyan-500/40 transform -translate-x-1/2"></div>
+       <div className="absolute top-[65%] bottom-[10%] left-1/2 w-[1px] bg-cyan-500/40 transform -translate-x-1/2"></div>
 
-       <div className="absolute top-4 left-0 right-0 text-center">
-          <span className="text-slate-600 font-black text-2xl uppercase tracking-widest opacity-30 select-none">Rival</span>
+       {/* Rival blip */}
+       <div className="absolute top-2 transform -translate-x-1/2 z-20 text-center transition-all duration-500" style={{ left: traj.rivalX }}>
+          <span className="text-cyan-500 font-black text-xl uppercase tracking-widest opacity-40 select-none">Rival</span>
        </div>
 
-       {/* Highlight Zones */}
-       {activeTechnique.targetArea === 'baseline' && (
-         <div className="absolute top-0 left-0 right-0 h-[15%] bg-gradient-to-b from-red-500/60 to-transparent animate-pulse z-10 border-b border-red-400/50 flex items-center justify-center">
-            <span className="text-white font-bold text-xs drop-shadow-md bg-black/40 px-2 rounded">{UI.zoneDeep[lang]}</span>
+       {/* Animated Ball Trajectory */}
+       <div 
+          key={activeTechnique.id}
+          className="absolute w-3 h-3 z-30 transform -translate-x-1/2 -translate-y-1/2"
+          style={{
+            animation: `ball-shoot ${traj.duration} infinite cubic-bezier(0.25, 1, 0.5, 1)`,
+            '--start-x': traj.startX,
+            '--start-y': traj.startY,
+            '--end-x': traj.endX,
+            '--end-y': traj.endY
+          }}
+       >
+         <div 
+           className="absolute top-0 left-0 w-full h-full bg-orange-400 rounded-full shadow-[0_0_10px_rgba(251,146,60,1)]"
+           style={{
+             animation: traj.isFlat ? 'none' : `ball-arc ${traj.duration} infinite cubic-bezier(0.25, 1, 0.5, 1)`,
+             '--scale-max': traj.scaleMax
+           }}
+         >
+           <div className="absolute top-0 left-0 w-full h-full bg-orange-400 rounded-full animate-ping opacity-50"></div>
+         </div>
+       </div>
+
+       {/* Highlight Zones with Target Lock-on */}
+       {activeTechnique.targetArea === 'baseline' && activeTechnique.id === 'serve' && (
+         <div className="absolute top-[10%] left-[10%] right-[50%] h-[15%] bg-red-500/20 border border-red-500/50 z-10 flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.3)] backdrop-blur-[1px]">
+            <TargetLock label={UI.zoneDeep[lang]} color="text-red-400" />
+         </div>
+       )}
+       
+       {activeTechnique.targetArea === 'baseline' && activeTechnique.id === 'return' && (
+         <div className="absolute top-[10%] left-[10%] right-[10%] h-[15%] bg-red-500/20 border border-red-500/50 z-10 flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.3)] backdrop-blur-[1px]">
+            <TargetLock label={UI.zoneDeep[lang]} color="text-red-400" />
          </div>
        )}
 
        {['kitchen', 'kitchen_feet'].includes(activeTechnique.targetArea) && (
-          <div className="absolute top-[35%] bottom-[50%] left-0 right-0 bg-green-500/40 animate-pulse z-10 flex items-center justify-center border-y border-green-400/30">
-             <span className="text-white font-bold text-xs drop-shadow-md bg-black/40 px-2 rounded">{UI.zoneNVZ[lang]}</span>
+          <div className="absolute top-[35%] bottom-[50%] left-[10%] right-[10%] bg-green-500/20 border border-green-500/50 z-10 flex items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.3)] backdrop-blur-[1px]">
+             <TargetLock label={UI.zoneNVZ[lang]} color="text-green-400" />
           </div>
        )}
 
        {activeTechnique.targetArea === 'body' && (
-          <div className="absolute top-[25%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-             <div className="relative">
-                <div className="w-16 h-16 rounded-full bg-yellow-500/50 animate-ping absolute inset-0"></div>
-                <div className="w-16 h-16 rounded-full bg-yellow-500/60 border-2 border-yellow-300 flex items-center justify-center relative shadow-[0_0_20px_rgba(234,179,8,0.6)]">
-                   <Target size={24} className="text-white" />
-                </div>
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 whitespace-nowrap bg-black/60 text-yellow-300 text-[10px] px-1 rounded">
-                   {UI.zoneBody[lang]}
-                </div>
+          <div className="absolute top-[25%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
+             <div className="absolute w-20 h-20 border-2 border-yellow-500/40 rounded-full animate-[spin_3s_linear_infinite]"></div>
+             <div className="absolute w-12 h-12 border-2 border-yellow-400 border-dashed rounded-full animate-[spin_4s_linear_infinite_reverse]"></div>
+             <div className="bg-yellow-500/20 p-2 rounded-full backdrop-blur-sm shadow-[0_0_15px_rgba(234,179,8,0.4)]">
+               <Target size={24} className="text-yellow-400" />
+             </div>
+             <div className="absolute top-full mt-2 whitespace-nowrap bg-[#020617]/80 text-yellow-400 text-[10px] px-2 py-0.5 rounded border border-yellow-500/50">
+                {UI.zoneBody[lang]}
              </div>
           </div>
        )}
 
        {['feet', 'kitchen_feet'].includes(activeTechnique.targetArea) && (
-          <div className="absolute top-[33%] left-[20%] right-[20%] h-4 bg-purple-500/60 blur-sm animate-pulse z-10"></div>
+          <div className="absolute top-[33%] left-[20%] right-[20%] h-4 bg-purple-500/40 blur-[2px] animate-pulse z-10 rounded-[100%] shadow-[0_0_15px_rgba(168,85,247,0.5)]"></div>
        )}
 
        {activeTechnique.targetArea === 'open_court' && (
-          <div className="absolute top-[10%] left-[60%] right-[5%] h-[40%] bg-blue-500/30 border-2 border-dashed border-blue-400 rounded animate-pulse z-10 flex items-center justify-center">
-             <span className="text-white font-bold text-xs bg-black/40 px-2 rounded">{UI.zoneOpen[lang]}</span>
+          <div className="absolute top-[15%] left-[55%] right-[10%] h-[35%] bg-blue-500/20 border-2 border-blue-400/60 z-10 flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.3)] backdrop-blur-[1px]">
+             <div className="absolute w-3 h-3 border-t-2 border-l-2 border-blue-400 top-0 left-0"></div>
+             <div className="absolute w-3 h-3 border-t-2 border-r-2 border-blue-400 top-0 right-0"></div>
+             <div className="absolute w-3 h-3 border-b-2 border-l-2 border-blue-400 bottom-0 left-0"></div>
+             <div className="absolute w-3 h-3 border-b-2 border-r-2 border-blue-400 bottom-0 right-0"></div>
+             <span className="text-blue-300 font-mono text-[10px] bg-[#020617]/80 px-2 py-1 rounded border border-blue-500/30 tracking-widest">{UI.zoneOpen[lang]}</span>
           </div>
        )}
 
-       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20">
-          <div className="bg-orange-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-orange-400">
-             <div className="w-2 h-2 bg-white rounded-full"></div>
+       {/* YOU radar blip */}
+       <div className="absolute transform -translate-x-1/2 -translate-y-1/2 z-20 transition-all duration-500" style={{ left: traj.startX, bottom: traj.startY }}>
+          <div className="relative flex items-center justify-center">
+            <div className="absolute w-12 h-12 border border-orange-500/50 rounded-full animate-ping"></div>
+            <div className="absolute w-8 h-8 border border-orange-500/80 rounded-full animate-pulse"></div>
+            <div className="bg-[#020617] text-orange-400 w-6 h-6 rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(249,115,22,0.8)] border border-orange-500">
+               <div className="w-1.5 h-1.5 bg-orange-300 rounded-full shadow-[0_0_5px_#fff]"></div>
+            </div>
           </div>
-          <div className="absolute top-full mt-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] text-orange-400 font-bold">YOU</div>
+          <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] text-orange-400 font-mono tracking-widest font-bold">YOU</div>
        </div>
     </div>
   );
